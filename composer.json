@@ -1,0 +1,12 @@
+{
+    "require-dev": {
+        "phpunit/phpunit": "@stable",
+    },
+    "autoload": {
+        "psr-4": {"Pascutti\\Tardis\\": "src/Pascutti/Tardis"}
+    },
+    "require": {
+        "doctrine/cache": "@stable",
+        "ocramius/proxy-manager": "dev-master"
+    }
+}

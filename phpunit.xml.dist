@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.2/phpunit.xsd"
+    bootstrap="vendor/autoload.php"
+    backupGlobals="false"
+    verbose="true">
+
+    <php>
+        <ini name="error_reporting" value="-1" />
+    </php>
+
+    <testsuites>
+        <testsuite name="Functional">
+            <directory suffix="Test.php">src/Pascutti/Tardis/Tests/Functional</directory>
+        </testsuite>
+
+        <testsuite name="Unit">
+            <directory suffix="Test.php">src/Pascutti/Tardis/Tests/Unit</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="true">
+            <directory suffix=".php">src</directory>
+            <exclude>
+                <directory>src/Pascutti/Tardis/Tests</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+</phpunit>
