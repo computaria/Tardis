@@ -24,6 +24,9 @@ class ArrayCacheTest extends \PHPUnit_Framework_TestCase
     /**
      * @var \Pascutti\Tardis\Tests\Fixture\Doctor
      */
+    /**
+     * @var Pascutti\Tardis\Tests\Fixture\Doctor
+     */
     private $subject = null;
 
     public function setUp()
@@ -43,7 +46,7 @@ class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function fetches_cache_for_existing_key()
     {
-        $idGenerator = new Tardis\Identity\Always(self::EXISTING_CACHE_KEY);
+        $idGenerator = new Tardis\Identity\AlwaysTheSameValue(self::EXISTING_CACHE_KEY);
         $tardis = new Tardis\Factory($this->proxyFactory, $this->cacheAdapter, $idGenerator);
 
         $proxiedSubject = $tardis->cacheCallsFrom($this->subject);
@@ -65,7 +68,7 @@ class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      */
     public function unexisting_cache_creates_cache_entry()
     {
-        $idGenerator = new Tardis\Identity\Always(self::MISSING_CACHE_KEY);
+        $idGenerator = new Tardis\Identity\AlwaysTheSameValue(self::MISSING_CACHE_KEY);
         $tardis = new Tardis\Factory($this->proxyFactory, $this->cacheAdapter, $idGenerator);
 
         $proxiedSubject = $tardis->cacheCallsFrom($this->subject);

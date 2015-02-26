@@ -2,7 +2,7 @@
 
 namespace Pascutti\Tardis\Identity;
 
-class Always
+class AlwaysTheSameValue implements IdentityGenerator
 {
     private $value = null;
 
@@ -11,7 +11,7 @@ class Always
         $this->value = $returnAlwaysThisValue;
     }
 
-    public function createIdFor($string)
+    public function createIdFor()
     {
         return $this->value;
     }

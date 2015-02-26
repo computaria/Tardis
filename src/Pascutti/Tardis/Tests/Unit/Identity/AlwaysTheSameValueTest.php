@@ -1,10 +1,8 @@
 <?php
 
-namespace Pascutti\Tardis\Tests\Unit\Identity;
+namespace Pascutti\Tardis\Identity;
 
-use Pascutti\Tardis;
-
-class AlwaysTest extends \PHPUnit_Framework_TestCase
+class AlwaysTheSameValueTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @test
@@ -12,12 +10,11 @@ class AlwaysTest extends \PHPUnit_Framework_TestCase
     public function alway_returns_same_value_from_constructor()
     {
         $expectedValue = 14;
-        $valueWithoutId = 'not important value';
-        $identityGenerator = new Tardis\Identity\Always($expectedValue);
+        $identityGenerator = new AlwaysTheSameValue($expectedValue);
 
         $this->assertEquals(
             $expectedValue,
-            $identityGenerator->createIdFor($valueWithoutId),
+            $identityGenerator->createIdFor(1, 2, 3, 4),
             'The "always" identity generator strategy should always return the same value.'
         );
     }
