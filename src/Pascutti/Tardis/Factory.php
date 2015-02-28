@@ -20,6 +20,14 @@ class Factory
      * @var Pascutti\Tardis\Identity\IdentityGenerator
      */
     private $idGenerator = null;
+    /**
+     * @var Pascutti\Tardis\Proxy\SufixInterceptor
+     */
+    private $sufixInterceptor = null;
+    /**
+     * @var Pascutti\Tardis\Proxy\PrefixInterceptor
+     */
+    private $prefixIntercetor = null;
 
     public function __construct(
         ProxyManager\AbstractBaseFactory $proxyFactory,
@@ -29,6 +37,9 @@ class Factory
         $this->proxyFactory = $proxyFactory;
         $this->cacheAdapter = $cacheAdapter;
         $this->idGenerator = $idGenerator;
+
+        $this->prefixIntercetor = new Proxy\CacheFetch($this->cacheAdapter, $this->idGenerator);
+        $this->sufixInterceptor = new Proxy\CacheSave($this->cacheAdapter, $this->idGenerator);
     }
 
     public function cacheCallsFrom($object)
@@ -38,26 +49,10 @@ class Factory
             throw new InvalidArgumentException($message);
         }
 
-        $cache = $this->cacheAdapter;
-        $idGenerator = $this->idGenerator;
-        $retrieveFromCache = function($proxy, $real, $method, $arguments, &$return) use ($cache, $idGenerator) {
-            $cacheId = $idGenerator->createIdFor($method, $arguments);
-            if ($cache->contains($cacheId)) {
-                $return = true;
-
-                return $cache->fetch($cacheId);
-            }
-        };
-
-        $saveIntoCache = function ($proxy, $instance, $method, $params, $returnValue, &$returnEarly) use ($cache, $idGenerator) {
-            $cacheId = $idGenerator->createIdFor($method, $params);
-            $cache->save($cacheId, $returnValue);
-        };
-
         return $this->proxyFactory->createProxy(
             $object,
-            ['salute' => $retrieveFromCache],
-            ['salute' => $saveIntoCache]
+            ['salute' => $this->prefixIntercetor],
+            ['salute' => $this->sufixInterceptor]
         );
     }
 }
