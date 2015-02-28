@@ -1,6 +1,6 @@
 <?php
 
-namespace Pascutti\Tardis\Identity;
+namespace Computaria\Tardis\Identity;
 
 use InvalidArgumentException;
 

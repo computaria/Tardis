@@ -1,6 +1,6 @@
 <?php
 
-namespace Pascutti\Tardis\Identity;
+namespace Computaria\Tardis\Identity;
 
 class AlwaysTheSameValue implements IdentityGenerator
 {

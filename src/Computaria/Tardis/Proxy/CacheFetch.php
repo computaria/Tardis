@@ -1,9 +1,9 @@
 <?php
 
-namespace Pascutti\Tardis\Proxy;
+namespace Computaria\Tardis\Proxy;
 
 use Doctrine\Common\Cache\Cache;
-use Pascutti\Tardis\Identity\IdentityGenerator;
+use Computaria\Tardis\Identity\IdentityGenerator;
 
 class CacheFetch implements PrefixInterceptor
 {
@@ -12,7 +12,7 @@ class CacheFetch implements PrefixInterceptor
      */
     private $cacheAdapter = null;
     /**
-     * @var Pascutti\Tardis\Identity\IdentityGenerator
+     * @var Computaria\Tardis\Identity\IdentityGenerator
      */
     private $identityGenerator = null;
 

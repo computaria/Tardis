@@ -1,6 +1,6 @@
 <?php
 
-namespace Pascutti\Tardis\Tests\Fixture;
+namespace Computaria\Tardis\Tests\Fixture;
 
 class Doctor
 {

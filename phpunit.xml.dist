@@ -11,11 +11,11 @@
 
     <testsuites>
         <testsuite name="Functional">
-            <directory suffix="Test.php">src/Pascutti/Tardis/Tests/Functional</directory>
+            <directory suffix="Test.php">src/Computaria/Tardis/Tests/Functional</directory>
         </testsuite>
 
         <testsuite name="Unit">
-            <directory suffix="Test.php">src/Pascutti/Tardis/Tests/Unit</directory>
+            <directory suffix="Test.php">src/Computaria/Tardis/Tests/Unit</directory>
         </testsuite>
     </testsuites>
 
@@ -23,7 +23,7 @@
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
             <exclude>
-                <directory>src/Pascutti/Tardis/Tests</directory>
+                <directory>src/Computaria/Tardis/Tests</directory>
             </exclude>
         </whitelist>
     </filter>

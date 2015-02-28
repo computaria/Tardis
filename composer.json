@@ -1,9 +1,9 @@
 {
     "require-dev": {
-        "phpunit/phpunit": "@stable",
+        "phpunit/phpunit": "@stable"
     },
     "autoload": {
-        "psr-4": {"Pascutti\\Tardis\\": "src/Pascutti/Tardis"}
+        "psr-4": {"Computaria\\Tardis\\": "src/Computaria/Tardis"}
     },
     "require": {
         "doctrine/cache": "@stable",

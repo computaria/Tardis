@@ -1,7 +1,7 @@
 <?php
 
-use Pascutti\Tardis;
-use Pascutti\Tardis\Tests\Fixture;
+use Computaria\Tardis;
+use Computaria\Tardis\Tests\Fixture;
 use Doctrine\Common\Cache;
 use ProxyManager\Factory\AccessInterceptorValueHolderFactory as ProxyFactory;
 
@@ -22,10 +22,10 @@ class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      */
     private $proxyFactory = null;
     /**
-     * @var \Pascutti\Tardis\Tests\Fixture\Doctor
+     * @var \Computaria\Tardis\Tests\Fixture\Doctor
      */
     /**
-     * @var Pascutti\Tardis\Tests\Fixture\Doctor
+     * @var Computaria\Tardis\Tests\Fixture\Doctor
      */
     private $subject = null;
 

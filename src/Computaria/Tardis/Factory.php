@@ -1,6 +1,6 @@
 <?php
 
-namespace Pascutti\Tardis;
+namespace Computaria\Tardis;
 
 use InvalidArgumentException;
 use Doctrine\Common\Cache\Cache;
@@ -17,15 +17,15 @@ class Factory
      */
     private $cacheAdapter = null;
     /**
-     * @var Pascutti\Tardis\Identity\IdentityGenerator
+     * @var Computaria\Tardis\Identity\IdentityGenerator
      */
     private $idGenerator = null;
     /**
-     * @var Pascutti\Tardis\Proxy\SufixInterceptor
+     * @var Computaria\Tardis\Proxy\SufixInterceptor
      */
     private $sufixInterceptor = null;
     /**
-     * @var Pascutti\Tardis\Proxy\PrefixInterceptor
+     * @var Computaria\Tardis\Proxy\PrefixInterceptor
      */
     private $prefixIntercetor = null;
 

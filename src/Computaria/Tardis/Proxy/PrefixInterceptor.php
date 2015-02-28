@@ -1,6 +1,6 @@
 <?php
 
-namespace Pascutti\Tardis\Proxy;
+namespace Computaria\Tardis\Proxy;
 
 /**
  * Actions to be called before the method call on the proxied object

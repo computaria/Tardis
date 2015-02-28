@@ -1,10 +1,10 @@
 <?php
 
-namespace Pascutti\Tardis\Proxy;
+namespace Computaria\Tardis\Proxy;
 
 use Doctrine\Common\Cache;
-use Pascutti\Tardis\Identity;
-use Pascutti\Tardis\Tests\Fixture;
+use Computaria\Tardis\Identity;
+use Computaria\Tardis\Tests\Fixture;
 
 class CacheSaveTest extends \PHPUnit_Framework_TestCase
 {
@@ -12,11 +12,11 @@ class CacheSaveTest extends \PHPUnit_Framework_TestCase
     const EXISTING_KEY = 'S03E06';
 
     /**
-     * @var Pascutti\Tardis\Tests\Fixture\Doctor
+     * @var Computaria\Tardis\Tests\Fixture\Doctor
      */
     private $proxy = null;
     /**
-     * @var Pascutti\Tardis\Tests\Fixture\Doctor
+     * @var Computaria\Tardis\Tests\Fixture\Doctor
      */
     private $real = null;
     /**
