@@ -9,37 +9,18 @@ use ProxyManager\Factory as ProxyManager;
 class Factory
 {
     /**
-     * @var ProxyManager\Factory\AbstractBaseFactory
+     * @var Computaria\Tardis\Proxy\PublicMethods
      */
     private $proxyFactory = null;
-    /**
-     * @var Doctrine\Common\Cache\Cache
-     */
-    private $cacheAdapter = null;
-    /**
-     * @var Computaria\Tardis\Identity\IdentityGenerator
-     */
-    private $idGenerator = null;
-    /**
-     * @var Computaria\Tardis\Interceptor\SufixInterceptor
-     */
-    private $sufixInterceptor = null;
-    /**
-     * @var Computaria\Tardis\Interceptor\PrefixInterceptor
-     */
-    private $prefixIntercetor = null;
 
     public function __construct(
         ProxyManager\AbstractBaseFactory $proxyFactory,
         Cache $cacheAdapter,
         Identity\IdentityGenerator $idGenerator
     ) {
-        $this->proxyFactory = $proxyFactory;
-        $this->cacheAdapter = $cacheAdapter;
-        $this->idGenerator = $idGenerator;
-
-        $this->prefixIntercetor = new Interceptor\CacheFetch($this->cacheAdapter, $this->idGenerator);
-        $this->sufixInterceptor = new Interceptor\CacheSave($this->cacheAdapter, $this->idGenerator);
+        $prefixIntercetor = new Interceptor\CacheFetch($cacheAdapter, $idGenerator);
+        $sufixInterceptor = new Interceptor\CacheSave($cacheAdapter, $idGenerator);
+        $this->proxyFactory = new Proxy\PublicMethods($proxyFactory, $prefixIntercetor, $sufixInterceptor);
     }
 
     public function cacheCallsFrom($object)
@@ -49,10 +30,6 @@ class Factory
             throw new InvalidArgumentException($message);
         }
 
-        return $this->proxyFactory->createProxy(
-            $object,
-            ['salute' => $this->prefixIntercetor],
-            ['salute' => $this->sufixInterceptor]
-        );
+        return $this->proxyFactory->createProxy($object);
     }
 }
