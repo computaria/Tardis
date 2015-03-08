@@ -2,7 +2,7 @@
 
 namespace Computaria\Tardis\Tests\Fixture;
 
-class Doctor
+class TimeLord
 {
     private $name = null;
     private $greet = null;
@@ -15,7 +15,7 @@ class Doctor
 
     public function salute($name = 'Impossible Girl')
     {
-        $greeting = '%s %s! I\'m Doctor %s!';
+        $greeting = '%s %s! I\'m the %s!';
 
         return sprintf($greeting, $this->greet, $name, $this->name);
     }

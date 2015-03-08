@@ -12,11 +12,11 @@ class CacheFetchTest extends \PHPUnit_Framework_TestCase
     const EXISTING_KEY = 'S03E06';
 
     /**
-     * @var Computaria\Tardis\Tests\Fixture\Doctor
+     * @var Computaria\Tardis\Tests\Fixture\TimeLord
      */
     private $proxy = null;
     /**
-     * @var Computaria\Tardis\Tests\Fixture\Doctor
+     * @var Computaria\Tardis\Tests\Fixture\TimeLord
      */
     private $real = null;
     /**
@@ -34,9 +34,9 @@ class CacheFetchTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->real = new Fixture\Doctor(
-            'Amy Pond',
-            'Geronimo'
+        $this->real = new Fixture\TimeLord(
+            'Master',
+            'Oh, it is you again'
         );
 
         $this->proxy = clone $this->real;

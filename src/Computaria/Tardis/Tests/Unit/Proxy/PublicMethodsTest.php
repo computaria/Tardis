@@ -53,7 +53,7 @@ class PublicMethodsTest extends \PHPUnit_Framework_TestCase
      */
     public function can_create_proxy_from_instances()
     {
-        $realInstance = new Fixture\Doctor('Who', 'Allonzy');
+        $realInstance = new Fixture\TimeLord('Rassilion', 'I\'m the first and only');
 
         $this->proxyFactory->expects($this->once())
             ->method('createProxy')

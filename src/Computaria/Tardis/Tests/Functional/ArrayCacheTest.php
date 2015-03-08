@@ -22,16 +22,13 @@ class ArrayCacheTest extends \PHPUnit_Framework_TestCase
      */
     private $proxyFactory = null;
     /**
-     * @var \Computaria\Tardis\Tests\Fixture\Doctor
-     */
-    /**
-     * @var Computaria\Tardis\Tests\Fixture\Doctor
+     * @var Computaria\Tardis\Tests\Fixture\TimeLord
      */
     private $subject = null;
 
     public function setUp()
     {
-        $this->subject = new Fixture\Doctor('Who', 'Allonzy');
+        $this->subject = new Fixture\TimeLord('Doctor', 'Allonzy');
 
         $this->proxyFactory = new ProxyFactory;
         $this->cacheAdapter = new Cache\ArrayCache();
