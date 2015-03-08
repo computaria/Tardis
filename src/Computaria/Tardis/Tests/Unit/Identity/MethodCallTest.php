@@ -16,38 +16,6 @@ class MethodCallTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @test
-     * @dataProvider provideInvalidNumberOfArguments
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage Expected 2 arguments to create an ID
-     */
-    public function call_without_right_number_of_arguments_fail(array $wrongNumberOfArguments)
-    {
-        $callable = [$this->generator, 'createIdFor'];
-
-        call_user_func_array($callable, $wrongNumberOfArguments);
-    }
-
-    public static function provideInvalidNumberOfArguments()
-    {
-        return [
-            [[]], // No arguments
-            [[1]], // One argument
-            [[1, 2, 3]], // Three arguments
-        ];
-    }
-
-    /**
-     * @test
-     * @expectedException InvalidArgumentException
-     * @expectedExceptionMessage An argument list should be always an array.
-     */
-    public function call_with_method_arguments_no_being_an_array_fail()
-    {
-        $this->generator->createIdFor('myMethod', 'not-an-agument-list');
-    }
-
-    /**
-     * @test
      */
     public function identity_for_same_method_and_arguments_should_be_the_same()
     {
