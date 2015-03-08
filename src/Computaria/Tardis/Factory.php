@@ -21,11 +21,11 @@ class Factory
      */
     private $idGenerator = null;
     /**
-     * @var Computaria\Tardis\Proxy\SufixInterceptor
+     * @var Computaria\Tardis\Interceptor\SufixInterceptor
      */
     private $sufixInterceptor = null;
     /**
-     * @var Computaria\Tardis\Proxy\PrefixInterceptor
+     * @var Computaria\Tardis\Interceptor\PrefixInterceptor
      */
     private $prefixIntercetor = null;
 
@@ -38,8 +38,8 @@ class Factory
         $this->cacheAdapter = $cacheAdapter;
         $this->idGenerator = $idGenerator;
 
-        $this->prefixIntercetor = new Proxy\CacheFetch($this->cacheAdapter, $this->idGenerator);
-        $this->sufixInterceptor = new Proxy\CacheSave($this->cacheAdapter, $this->idGenerator);
+        $this->prefixIntercetor = new Interceptor\CacheFetch($this->cacheAdapter, $this->idGenerator);
+        $this->sufixInterceptor = new Interceptor\CacheSave($this->cacheAdapter, $this->idGenerator);
     }
 
     public function cacheCallsFrom($object)

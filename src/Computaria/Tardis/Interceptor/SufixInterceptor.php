@@ -1,6 +1,6 @@
 <?php
 
-namespace Computaria\Tardis\Proxy;
+namespace Computaria\Tardis\Interceptor;
 
 /**
  * Actions to be called after the method call on the proxied object

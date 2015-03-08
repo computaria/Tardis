@@ -1,11 +1,11 @@
 <?php
 
-namespace Computaria\Tardis\Proxy;
+namespace Computaria\Tardis\Interceptor;
 
 use Doctrine\Common\Cache\Cache;
 use Computaria\Tardis\Identity\IdentityGenerator;
 
-class CacheSave implements SufixInterceptor
+class CacheFetch implements PrefixInterceptor
 {
     /**
      * @var Doctrine\Common\Cache\Cache
@@ -22,13 +22,15 @@ class CacheSave implements SufixInterceptor
         $this->identityGenerator = $idGenerator;
     }
 
-    public function __invoke($proxy, $instance, $methodName, $methodArguments, $returnValue, &$returnEarly)
+    public function __invoke($proxy, $instance, $methodName, $methodArguments, &$returnEarly)
     {
         $cacheId = $this->identityGenerator->createIdFor($methodName, $methodArguments);
         if (false == $this->cacheAdapter->contains($cacheId)) {
-            $this->cacheAdapter->save($cacheId, $returnValue);
+            return;
         }
 
-        return $returnValue;
+        $returnEarly = true;
+
+        return $this->cacheAdapter->fetch($cacheId);
     }
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace Computaria\Tardis\Proxy;
+namespace Computaria\Tardis\Interceptor;
 
 use Doctrine\Common\Cache;
 use Computaria\Tardis\Identity;
 use Computaria\Tardis\Tests\Fixture;
 
-class CacheFetchTest extends \PHPUnit_Framework_TestCase
+class CacheSaveTest extends \PHPUnit_Framework_TestCase
 {
     const EXISTING_VALUE = 'It’s not the time that matters, it’s the person.';
     const EXISTING_KEY = 'S03E06';
@@ -53,53 +53,55 @@ class CacheFetchTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function non_cached_value_does_not_get_returned()
+    public function value_gets_cached()
     {
         $this->cacheAdapter->expects($this->once())
             ->method('contains')
             ->with(self::EXISTING_KEY)
             ->willReturn(false);
-        $this->cacheAdapter->expects($this->never())
-            ->method('fetch');
+        $this->cacheAdapter->expects($this->once())
+            ->method('save')
+            ->with(self::EXISTING_KEY, self::EXISTING_VALUE);
 
-        $sufixInterceptor = new CacheFetch($this->cacheAdapter, $this->identityGenerator);
-        $returnedValue = $sufixInterceptor($this->proxy, $this->real, $this->methodName, $this->methodArguments, $this->returnEarly);
+        $sufixInterceptor = new CacheSave($this->cacheAdapter, $this->identityGenerator);
+        $returnValue = self::EXISTING_VALUE;
+        $returnedValue = $sufixInterceptor($this->proxy, $this->real, $this->methodName, $this->methodArguments, $returnValue, $this->returnEarly);
 
-        $this->assertEmpty(
+        $this->assertEquals(
+            $returnValue,
             $returnedValue,
-            'Value not on cache should not get returned.'
+            'Value returned should be the same one returned form the real object.'
         );
         $this->assertFalse(
             $this->returnEarly,
-            'A non cached value should not get returned early, procceding the call on the real object.'
+            'Sufix interceptor should never return an early value.'
         );
     }
 
     /**
      * @test
      */
-    public function cached_value_gets_returned_early()
+    public function cached_value_does_not_get_cached_again()
     {
         $this->cacheAdapter->expects($this->once())
             ->method('contains')
             ->with(self::EXISTING_KEY)
             ->willReturn(true);
-        $this->cacheAdapter->expects($this->once())
-            ->method('fetch')
-            ->with(self::EXISTING_KEY)
-            ->willReturn(self::EXISTING_VALUE);
+        $this->cacheAdapter->expects($this->never())
+            ->method('save');
 
-        $sufixInterceptor = new CacheFetch($this->cacheAdapter, $this->identityGenerator);
-        $returnedValue = $sufixInterceptor($this->proxy, $this->real, $this->methodName, $this->methodArguments, $this->returnEarly);
+        $sufixInterceptor = new CacheSave($this->cacheAdapter, $this->identityGenerator);
+        $returnValue = self::EXISTING_VALUE;
+        $returnedValue = $sufixInterceptor($this->proxy, $this->real, $this->methodName, $this->methodArguments, $returnValue, $this->returnEarly);
 
         $this->assertEquals(
-            self::EXISTING_VALUE,
+            $returnValue,
             $returnedValue,
-            'Value returned should be the same one cached.'
+            'Value returned should be the same one returned form the real object.'
         );
-        $this->assertTrue(
+        $this->assertFalse(
             $this->returnEarly,
-            'Value on cache should be returned early.'
+            'Sufix interceptor should never return an early value.'
         );
     }
 
