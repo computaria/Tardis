@@ -9,10 +9,10 @@ use Computaria\Tardis;
 use MyApp\Repository;
 
 $apc = new Doctrine\Common\Cache\ApcCache;
-$cache = new Tardis\Factory($apc);
+$tardis = new Tardis\Factory::grow($apc);
 
 $slowRepository = new Repository\Country;
-$fastRepository = $cache->callsFrom($slowRepository);
+$fastRepository = $tardis->cacheCallsFrom($slowRepository);
 
 $brazil = $fastRepository->findByCode('BR');
 ```
@@ -22,8 +22,8 @@ Requirements: PHP >= 5.5
 What happened above:
 
 1. `$apc` is our cache storage.
-2. `$cache` is a factory of [proxies][proxy], caching into `$apc`.
-3. `$cache->callsFrom()` creates a new object which will cache and
+2. `$tardis` is a factory of [proxies][proxy], caching into `$apc`.
+3. `$tardis->cacheCallsFrom()` creates a new object which will cache and
    retrieve results from it.
 
 ## What cache storages are available?

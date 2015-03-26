@@ -6,7 +6,8 @@ use Doctrine\Common\Cache;
 use ProxyManager\Factory\AccessInterceptorValueHolderFactory as ProxyFactory;
 
 /**
- * @TODO Refactor Inroduce Parameter Object for Tardis\Factory configuration.
+ * @TODO Refactor Introduce Parameter Object for Tardis\Factory configuration.
+ * @group functional
  */
 class ArrayCacheTest extends \PHPUnit_Framework_TestCase
 {
@@ -44,7 +45,7 @@ class ArrayCacheTest extends \PHPUnit_Framework_TestCase
     public function fetches_cache_for_existing_key()
     {
         $idGenerator = new Tardis\Identity\AlwaysTheSameValue(self::EXISTING_CACHE_KEY);
-        $tardis = new Tardis\Factory($this->proxyFactory, $this->cacheAdapter, $idGenerator);
+        $tardis = Tardis\Factory::grow($this->cacheAdapter, $idGenerator, $this->proxyFactory);
 
         $proxiedSubject = $tardis->cacheCallsFrom($this->subject);
 
@@ -66,7 +67,7 @@ class ArrayCacheTest extends \PHPUnit_Framework_TestCase
     public function unexisting_cache_creates_cache_entry()
     {
         $idGenerator = new Tardis\Identity\AlwaysTheSameValue(self::MISSING_CACHE_KEY);
-        $tardis = new Tardis\Factory($this->proxyFactory, $this->cacheAdapter, $idGenerator);
+        $tardis = Tardis\Factory::grow($this->cacheAdapter, $idGenerator, $this->proxyFactory);
 
         $proxiedSubject = $tardis->cacheCallsFrom($this->subject);
         $this->assertFalse(
@@ -89,6 +90,39 @@ class ArrayCacheTest extends \PHPUnit_Framework_TestCase
             $this->subject->salute(),
             $this->cacheAdapter->fetch(self::MISSING_CACHE_KEY),
             'Value put on cache should be the same one returned by the real subject.'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function can_grow_without_identity_generator()
+    {
+        $noIdGenerator = null;
+
+        $tardis = Tardis\Factory::grow($this->cacheAdapter, $noIdGenerator, $this->proxyFactory);
+
+        $this->assertInstanceOf(
+            'Computaria\Tardis\Proxy\PublicMethods',
+            $tardis,
+            'A public method proxy factory should be able to be created without and identity generator.'
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function can_grow_only_with_cache()
+    {
+        $noIdGenerator = null;
+        $noProxyFactory = null;
+
+        $tardis = Tardis\Factory::grow($this->cacheAdapter, $noIdGenerator, $noProxyFactory);
+
+        $this->assertInstanceOf(
+            'Computaria\Tardis\Proxy\PublicMethods',
+            $tardis,
+            'A public method proxy factory should be able to be created without and identity generator.'
         );
     }
 }

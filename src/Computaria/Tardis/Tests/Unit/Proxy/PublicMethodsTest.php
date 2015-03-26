@@ -63,6 +63,6 @@ class PublicMethodsTest extends \PHPUnit_Framework_TestCase
                 $this->contains($this->sufixIntercetor)
             );
 
-        $proxiedInstance = $this->factory->createProxy($realInstance);
+        $proxiedInstance = $this->factory->cacheCallsFrom($realInstance);
     }
 }

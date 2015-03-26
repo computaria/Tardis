@@ -45,7 +45,7 @@ class PublicMethods
         $this->sufixInterceptor = $sufixInterceptor;
     }
 
-    public function createProxy($instance)
+    public function cacheCallsFrom($instance)
     {
         $methodNames = $this->getAllPublicMethodsFromInstance($instance);
         $prefixInterceptors = array_map($this->apply($this->prefixInterceptor), $methodNames);
