@@ -59,7 +59,7 @@ class.
 
 > Isn't creating a class on the fly expensive and slow?
 
-Yes, although not as slow as you might thing and it is only a once in a
+Yes, although not as slow as you might think and it is only a once in a
 time operation.
 
 > How are you sure of what cache key to retrieve?
