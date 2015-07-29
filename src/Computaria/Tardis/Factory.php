@@ -2,7 +2,6 @@
 
 namespace Computaria\Tardis;
 
-use InvalidArgumentException;
 use Doctrine\Common\Cache\Cache;
 use ProxyManager\Factory as ProxyManager;
 use ProxyManager\Configuration as ProxyConfiguration;
@@ -21,7 +20,7 @@ class Factory
         $beforeMethodCall = new Interceptor\CacheFetch($cacheAdapter, $idGenerator);
         $afterMethodCall = new Interceptor\CacheSave($cacheAdapter, $idGenerator);
 
-        return new Proxy\PublicMethods($proxyFactory, $beforeMethodCall, $afterMethodCall);
+        return new Proxy\PublicMethods($proxyFactory, $beforeMethodCall, $afterMethodCall, $idGenerator, $cacheAdapter);
     }
 
     private static function createProxyFactoryIfNecessary(ProxyManager\AbstractBaseFactory $proxyFactory=null)

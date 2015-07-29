@@ -2,6 +2,8 @@
 
 namespace Computaria\Tardis\Proxy;
 
+use Doctrine\Common\Cache\Cache;
+use Computaria\Tardis\Identity\IdentityGenerator;
 use ReflectionClass;
 use ReflectionMethod;
 use Computaria\Tardis\Interceptor;
@@ -22,6 +24,14 @@ class PublicMethods
      */
     private $sufixIntercetor = null;
     /**
+     * @var \Computaria\Tardis\Identity\IdentityGenerator
+     */
+    private $identityGenerator = null;
+    /**
+     * @var \Doctrine\Common\Cache\Cache
+     */
+    private $cacheAdapter = null;
+    /**
      * List of public methods to avoid proxy
      *
      * @var array
@@ -38,11 +48,15 @@ class PublicMethods
     public function __construct(
         ProxyFactory\AbstractBaseFactory $proxyFactory,
         Interceptor\PrefixInterceptor $prefixInterceptor,
-        Interceptor\SufixInterceptor $sufixInterceptor
+        Interceptor\SufixInterceptor $sufixInterceptor,
+        IdentityGenerator $identityGenerator,
+        Cache $cacheAdapter
     ) {
         $this->proxyFactory = $proxyFactory;
         $this->prefixInterceptor = $prefixInterceptor;
         $this->sufixInterceptor = $sufixInterceptor;
+        $this->identityGenerator = $identityGenerator;
+        $this->cacheAdapter = $cacheAdapter;
     }
 
     public function cacheCallsFrom($instance)
@@ -56,6 +70,12 @@ class PublicMethods
             $prefixInterceptors,
             $sufixInterceptors
         );
+    }
+
+    public function invalidate($methodName, array $methodArguments)
+    {
+        $cacheId = $this->identityGenerator->createIdFor($methodName, $methodArguments);
+        return $this->cacheAdapter->delete($cacheId);
     }
 
     private function apply($interceptor)
