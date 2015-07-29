@@ -14,7 +14,11 @@ $tardis = new Tardis\Factory::grow($apc);
 $slowRepository = new Repository\Country;
 $fastRepository = $tardis->cacheCallsFrom($slowRepository);
 
+// cache
 $brazil = $fastRepository->findByCode('BR');
+
+// invalidate
+$tardis->invalidate('findByCode', ['code' => 'BR']);
 ```
 
 Requirements: PHP >= 5.5
