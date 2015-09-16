@@ -26,7 +26,7 @@ class Factory
 
     private static function createProxyFactoryIfNecessary(ProxyManager\AbstractBaseFactory $proxyFactory=null)
     {
-        if (false === is_null($proxyFactory)) {
+        if (!is_null($proxyFactory)) {
             return $proxyFactory;
         }
 
@@ -40,7 +40,7 @@ class Factory
 
     private static function createIdentityGeneratorIfNecessary(IdentityGenerator $idGenerator=null)
     {
-        if (false === is_null($idGenerator)) {
+        if (!is_null($idGenerator)) {
             return $idGenerator;
         }
 
