@@ -1,4 +1,5 @@
 # Computaria\Tardis: Cache made easier
+[![Build Status](https://travis-ci.org/computeiros/Tardis.svg?branch=develop)](https://travis-ci.org/computeiros/Tardis)
 
 Cache stuff with almost no modification on your code:
 
