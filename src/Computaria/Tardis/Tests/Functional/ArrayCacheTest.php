@@ -125,4 +125,29 @@ class ArrayCacheTest extends \PHPUnit_Framework_TestCase
             'A public method proxy factory should be able to be created without and identity generator.'
         );
     }
+
+    /**
+     * @test
+     */
+    public function can_invalidate_cache()
+    {
+        $idGenerator = new Tardis\Identity\MethodCall();
+        $cacheId = $idGenerator->createIdFor('salute', ['name' => 'Impossible Girl']);
+        $tardis = Tardis\Factory::grow($this->cacheAdapter, $idGenerator, $this->proxyFactory);
+
+        $proxiedSubject = $tardis->cacheCallsFrom($this->subject);
+        $proxiedSubject->salute();
+
+        $this->assertTrue(
+            $this->cacheAdapter->contains($cacheId),
+            'Cache should contain a previous key.'
+        );
+
+        $tardis->invalidate('salute', ['name' => 'Impossible Girl']);
+
+        $this->assertFalse(
+            $this->cacheAdapter->contains($cacheId),
+            'Cache should invalidate key.'
+        );
+    }
 }

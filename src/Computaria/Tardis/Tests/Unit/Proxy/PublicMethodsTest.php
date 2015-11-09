@@ -23,6 +23,14 @@ class PublicMethodsTest extends \PHPUnit_Framework_TestCase
      */
     private $sufixIntercetor = null;
     /**
+     * @var \Computaria\Tardis\Identity\IdentityGenerator
+     */
+    private $identityGenerator = null;
+    /**
+     * @var \Doctrine\Common\Cache\Cache
+     */
+    private $cacheAdapter = null;
+    /**
      * @var \Computaria\Tardis\Proxy\PublicMethods
      */
     private $factory = null;
@@ -40,11 +48,15 @@ class PublicMethodsTest extends \PHPUnit_Framework_TestCase
         );
         $this->prefixInterceptor = $this->getMock('Computaria\\Tardis\\Interceptor\\PrefixInterceptor');
         $this->sufixIntercetor = $this->getMock('Computaria\\Tardis\\Interceptor\\SufixInterceptor');
+        $this->identityGenerator = $this->getMock('Computaria\\Tardis\\Identity\\IdentityGenerator');
+        $this->cacheAdapter = $this->getMock('Doctrine\\Common\\Cache\\Cache');
 
         $this->factory = new PublicMethods(
             $this->proxyFactory,
             $this->prefixInterceptor,
-            $this->sufixIntercetor
+            $this->sufixIntercetor,
+            $this->identityGenerator,
+            $this->cacheAdapter
         );
     }
 
@@ -64,5 +76,16 @@ class PublicMethodsTest extends \PHPUnit_Framework_TestCase
             );
 
         $proxiedInstance = $this->factory->cacheCallsFrom($realInstance);
+    }
+
+    /**
+     * @test
+     */
+    public function can_invalidate_cache()
+    {
+        $this->cacheAdapter->expects($this->once())
+            ->method('delete');
+
+        $this->factory->invalidate('salute', []);
     }
 }
