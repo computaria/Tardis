@@ -20,7 +20,7 @@ class PublicMethods
     /**
      * @var \Computaria\Tardis\Interceptor\SufixInterceptor
      */
-    private $sufixIntercetor = null;
+    private $sufixInterceptor = null;
     /**
      * List of public methods to avoid proxy
      *
