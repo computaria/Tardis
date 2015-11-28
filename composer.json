@@ -5,6 +5,9 @@
     "autoload": {
         "psr-4": {"Computaria\\Tardis\\": "src/Computaria/Tardis"}
     },
+    "autoload-dev": {
+        "psr-4": { "Computaria\\Tardis\\Tests\\": "tests" }
+    },
     "require": {
         "php": ">=5.5",
         "doctrine/cache": "~1.5.1",

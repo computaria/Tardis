@@ -7,24 +7,24 @@
 
     <php>
         <ini name="error_reporting" value="-1" />
+        <ini name="display_errors" value="1" />
+        <ini name="date.timezone" value="UTC" />
+        <ini name="memory_limit" value="16M" />
     </php>
 
     <testsuites>
         <testsuite name="Functional">
-            <directory suffix="Test.php">src/Computaria/Tardis/Tests/Functional</directory>
+            <directory suffix="Test.php">tests/Functional</directory>
         </testsuite>
 
         <testsuite name="Unit">
-            <directory suffix="Test.php">src/Computaria/Tardis/Tests/Unit</directory>
+            <directory suffix="Test.php">tests/Unit</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">src</directory>
-            <exclude>
-                <directory>src/Computaria/Tardis/Tests</directory>
-            </exclude>
         </whitelist>
     </filter>
 </phpunit>
