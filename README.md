@@ -10,7 +10,7 @@ use Computaria\Tardis;
 use MyApp\Repository;
 
 $apc = new Doctrine\Common\Cache\ApcCache;
-$tardis = new Tardis\Factory::grow($apc);
+$tardis = Tardis\Factory::grow($apc);
 
 $slowRepository = new Repository\Country;
 $fastRepository = $tardis->cacheCallsFrom($slowRepository);
@@ -48,7 +48,7 @@ What happened above:
 - We can't cache final classes.
 - We only cache public method calls.
 - Methods which accept [non-serializable][serialize] arguments can't
-  be cached automagically.
+  be cached auto-magically.
 
 ## FAQ
 
@@ -68,7 +68,7 @@ time operation.
 To create a cache key we use `Full\Class\Name::methodName` and serialize
 all its arguments, in order to have a unique identity to that call.
 
-If a method, of the same calss and with the same arguments, return different
+If a method, of the same class and with the same arguments, return different
 things you are in trouble.
 
 > How do I expire a cache entry?
