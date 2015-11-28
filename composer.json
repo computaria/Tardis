@@ -6,7 +6,8 @@
         "psr-4": {"Computaria\\Tardis\\": "src/Computaria/Tardis"}
     },
     "require": {
-        "doctrine/cache": "@stable",
-        "ocramius/proxy-manager": "dev-master"
+        "php": ">=5.5",
+        "doctrine/cache": "~1.5.1",
+        "ocramius/proxy-manager": "~1.0.2"
     }
 }
